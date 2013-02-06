@@ -1,4 +1,4 @@
-\documentclass[oneside,a4paper,english,links]{article}
+\documentclass[oneside,a4paper,english,links,12pt]{article}
 %
 \usepackage{graphicx}
 \usepackage{amsmath,amsfonts}
@@ -24,11 +24,9 @@
 \end{center}
 
 \begin{abstract}
-In the last years, fractals and multifractals have been used extensively in image processing. They have shown to provide local and global image features that are both robust and low dimensional.
+In the last years, fractals and multifractals have been used extensively in image processing. They have shown to provide local and global image features that are both robust and low dimensional. Adequate image descriptors are fundamental in image classification, object recognition and characterization.
 
-Adequate image descriptors are fundamental in image classification, object recognition and characterization. Main requirements for image features are robustness and low dimensionality.
-
-In this work several fractal and multifractal techniques for image analysis are presented.
+In this work several fractal and multifractal techniques for image analysis and its applications are presented. They appear as a natural and powerful tool for image processing.
 \end{abstract}
 
 \section{Introduction}
@@ -36,7 +34,7 @@ A great number of physical systems tend to present similar behaviours on differe
 
 Fractal and multifractal analysis of images have proved to capture useful properties of the underlying material being represented. Characterisation of images using these features have been successfully applied in different areas, such as medicine \cite{Andjelkovic2008,Yu2011} and texture classification \cite{Wendt2009}. Through several procedures, it is possible to obtain different Fractal Dimensions (FD), each of them capturing a different property of the material ({\em e.g.}, void image fraction, rugosity).
 
-In this work we will show different fractal and multifractal dimensions employed in different applications such as classification and edge detection. In section 2 we briefly introduce the theory underlying fractal sets. In section 3 we describe an example of the materials and methods employed in a classification. In section 4 we show the results obtained in that classification. In section 5 we show different possible applications of fractal and multifractal analysis. In section 6 we summarise the conclusions.
+In this work we will show different fractal and multifractal dimensions employed in different applications such as classification and edge detection. In section 2 and 3 we briefly introduce the theory underlying fractal sets. In section 4 we describe some applications of the multifractal analysis. In section 5 we summarise the conclusions.
 
 \section{Fractal analysis}
 \subsection{Fractal}
@@ -271,12 +269,54 @@ In Table \ref{table:ConfusionMatrixFractal} the confusion matrix of the data usi
 
 It can be seen that the values for the cross validation and for the robustness tests are similar when varying the parameters of the method.
 
+\subsection{Edge Detection}
+It is possible to define thresholds in the multifractal spectrum, in order to divide the image in regions. The concepts of {\em smooth} and {\em sharp} appears naturally in the multifractal spectrum. If we take the $f(\alpha)$ values and put the value in each corresponding pixel, forming an image ($f(\alpha)$ image), then it is possible to segment objects from it.
+
+Following this line, it is possible to perform an edge detection of the image as follows:
+\begin{itemize}
+\item Define a sequence of $c$ capacities.
+\item Compute the H\"older exponents.
+\item Compute the multifractal spectrum.
+\item Define as smooth pixels with $\alpha = 1$ and {\em irregular} pixels with $\alpha$ betweeen two values (typically $1.1$ and $1.5$).
+\end{itemize}
+
+In the images it is possible to see the application of this procedure.
+\begin{figure*}[htb]
+\centering
+\includegraphics[scale=0.25]{imagenes/edge}
+\includegraphics[scale=0.25]{imagenes/edgeeq}
+\includegraphics[scale=0.25]{imagenes/edgemaxsmooth}
+\includegraphics[scale=0.25]{imagenes/edgemaxirreg}
+\caption{Edge detection using the multifractal spectrum: (from left to right) original image, histogram equalization, pixels classified as {\em smooth}, pixels classified as {\em irregular}}
+\label{fig:camera}
+\end{figure*}
+
+
 \subsection{Image enhancement}
-\subsection{Esge Detection}
+In \cite{Yu2012} a similar procedure to that of the previous section is followed. Pixels are classified to smooth or irregular and the gray level of the irregular ones is changed in order to enhance the contrast taking into account the human visual perception. The images show the results of this procedure.
+\begin{figure*}[htb]
+\centering
+\includegraphics[scale=0.15]{imagenes/enhance}
+\includegraphics[scale=0.15]{imagenes/enhanceeq}
+\includegraphics[scale=0.35]{imagenes/enhancemfs}
+\caption{Image enhancement using the multifractal spectrum: (from left to right) original image, histogram equalization, image enhanced using the multifractal spectrum}
+\label{fig:camera}
+\end{figure*}
+
 \subsection{Medical Applications}
+Medicine is the main area of multifractal spectrum applications. Usually, images of healthy regions of the body are characterized by some kind of spectrum while unhealthy images appears as deviations of these features. In Figure \ref{fig:medical} two multifractal spectrums (using the {\em max} measure) of two pacient's retinography are shown. The pathological one appears as a deviation of the slope in the spectrum's graph.
 
+\begin{figure*}[htb]
+\centering
+\includegraphics[scale=0.25]{imagenes/medicalgraph}
+\caption{Multifractal spectrum of the retinography of a healthy and a pathological pacient}
+\label{fig:medical}
+\end{figure*}
 
+\section{Conclusions}
+Fractal and multifractal dimensions of images have proved to be a valuable tool for image processing. Different approaches have been tried, each one showing different aspects of the images. The multifractal spectrum obtained by the direct calculation of the H\"older exponents resulted useful in defining different measures of the same image.
 
+Rugosity (irregularity) and space filling-capacity are among the most important features that can be extracted, making possible the edge detection and the segmentation of structures. Material characterization is also possible due to the robust feature extraction process involved. These features can be used in material quality measurements.
 
 \bibliography{bibliografia/bib}
 \bibliographystyle{unsrt}
