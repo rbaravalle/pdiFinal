@@ -24,21 +24,34 @@
 \end{center}
 
 \begin{abstract}
-Adequate image descriptors are fundamental in image classification and object recognition. Main requirements for image features are robustness and low dimensionality which would lead to low classification errors in a variety of situations and with a reasonable computational cost.
+In the last years, fractals and multifractals have been used extensively in image processing. They have shown to provide local and global image features that are both robust and low dimensional.
 
-In this context, the identification of materials poses a significant challenge, since typical (geometric and/or differential) feature extraction methods are not robust enough. Texture features based on Fourier or wavelet transforms, on the other hand, do withstand geometric and illumination variations, but tend to require a high amount of descriptors to perform adequately. 
+Adequate image descriptors are fundamental in image classification, object recognition and characterization. Main requirements for image features are robustness and low dimensionality.
 
-Recently, the theory of fractal sets has shown to provide local image features that are both robust and low-dimensional.
+In this work several fractal and multifractal techniques for image analysis are presented.
 \end{abstract}
 
 \section{Introduction}
-Fractal and multifractal analysis of images have proved to capture useful properties of the underlying material being represented. Characterisation of images using these features have been successfully applied in different areas, such as medicine \cite{Andjelkovic2008,Yu2011} and texture classification \cite{Wendt2009}. Through several procedures, it is possible to obtain different Fractal Dimensions (FD), each of them capturing a different property of the material ({\em e.g.}, void image fraction, rugosity).
+A great number of physical systems tend to present similar behaviours on different scales of observation. In the last century, the mathematician Mandelbrot employed the term {\em fractal} to describe objects whose complex geometry cannot be characterized by an integral dimension. In other words, Euclidean geometry fails to successfully describe those systems.
 
-For each material, the results obtained in the classification process are useful in quality measurements of real samples and also in the validation of synthetic representations of them. In other words, the classification is useful to determine if a given image presents the observed features in that material, allowing to associate quality measure parameters to the material.
+Fractal and multifractal analysis of images have proved to capture useful properties of the underlying material being represented. Characterisation of images using these features have been successfully applied in different areas, such as medicine \cite{Andjelkovic2008,Yu2011} and texture classification \cite{Wendt2009}. Through several procedures, it is possible to obtain different Fractal Dimensions (FD), each of them capturing a different property of the material ({\em e.g.}, void image fraction, rugosity).
 
 In this work we will show different fractal and multifractal dimensions employed in different applications such as classification and edge detection. In section 2 we briefly introduce the theory underlying fractal sets. In section 3 we describe an example of the materials and methods employed in a classification. In section 4 we show the results obtained in that classification. In section 5 we show different possible applications of fractal and multifractal analysis. In section 6 we summarise the conclusions.
 
 \section{Fractal analysis}
+\subsection{Fractal}
+An useful property to understand fractals is its autosimilarity, {\em i.e.}, the entire structure is contained as a substructure. Since in nature it is not always the case, usually fractals are characterized by statistical self-similarity. Examples of natural fractals are trees, clouds, mountains, coastlines and even heartbeats. In Figure \ref{fig:fractal} an image of showing statistical self-similarity is shown.
+
+\begin{figure*}[htb]
+\centering
+$\vcenter{\hbox{\includegraphics[scale=1.3]{imagenes/fractal}}}$
+\caption{An image of a Romanesco Broccoli showing statistical self-similarity}
+\label{fig:fractal}
+\end{figure*}
+
+
+An image representing an object could be processed in order to obtain its fractal dimensions, using the algorithms presented in next sections.
+
 \subsection{Box dimension}
 Box FD is a simplification of the Hausdorff (originally Minkowski - Bouligand) dimension for non strictly self-similar objects (\cite{Peitgen2004}). Given a binarised image, it is subdivided in a grid of size $M\times M$ where the side of each box formed is $\epsilon$. If $N_{\epsilon}$ represents the amount of boxes that contains at least one pixel in the binarisation of the set for that $\epsilon$, then the box dimension  $D_{b}$ is defined as
 
@@ -75,10 +88,10 @@ M_{d} = 2 + m,
 where $m$ is the slope of the straight line fit.
 
 \section{Multifractal analysis}
-Some elements in nature show fractal features or auto similarity. The fractal dimension is an exponent which relates the statistical auto similarity of the object at different scales. On the one hand, deterministic fractals are characterized by the same FD at all scales. They are called {\em monofractals} (for instance, Koch Curve, Sierpinsky triangle). On the other hand, {\em multifractals} (\cite{Mandelbrot89}) are characterized by a set of FDs depending on the scale. It is assumed that these structures are composed by different fractals coexisting simultaneously.
+The fractal dimension is an exponent which relates the statistical self-similarity of the object at different scales. On the one hand, deterministic fractals are characterized by one FD. They are called {\em monofractals} (for instance, Koch Curve, Sierpinsky triangle). On the other hand, {\em multifractals} (\cite{Mandelbrot89}) are characterized by a set of FDs. It is assumed that these structures are composed by different fractals coexisting simultaneously.
 
 \subsubsection{H\"older exponent}
-Informally, the way to proceed with multifractal analysis is to examine, in the limit, the local behaviour of a measure $\mu$ at each point of the set under study. This means, to find the H\"older exponent $\alpha$ in that point. The {\em multifractal spectrum} $f(\alpha)$ is obtained applying this procedure to the entire set, in this case, an image.
+Informally, the way to proceed with multifractal analysis is to examine, in the limit, the local behaviour of a measure $\mu$ at each point of the set under study. This means, to find the H\"older exponent $\alpha$ in that point. Usual measures for a region are $max$, $min$ and the $sum$ of the values in the region, among others. The {\em multifractal spectrum} $f(\alpha)$ is obtained applying this procedure to the entire set, in this case, an image.
 
 Let $E$ be an structure divided in disjoint substructures $E_{i}$ of size $\epsilon$ in such a way that 
 
@@ -120,7 +133,7 @@ To obtain the H\"older exponent at a given pixel, a linear regression fitting is
 
 From the $\alpha$ values a new image is generated in grey scale ($\alpha$ image), with the same dimensions of the original, where the value at each pixel is a mapping from the exponent to that scale. Since it is possible to obtain $M\times M$ values per image (where $M\times M$ is the dimension in pixels of the image), it is necessary to define a number $C$ of classes (the number could be a parameter), each of which establishes $\alpha$ range values, and then to calculate the spectrum only for those values.
 
-Let $\alpha_{min}$ and  $\alpha_{max}$ be the minimum and maximum values of $\alpha$ computed in the image. $C$ values are defined $\alpha_{c} = \alpha_{min} + (c-1)(\alpha_{max}-\alpha_{min})/C$, where $c = 1,2,\dots,C$. Then, $\alpha \in \alpha_{c}$ if $\alpha_{c} \leq \alpha < \alpha_{c+1}$. If $\alpha = \alpha_{max}$, then $\alpha \in \alpha_{C}$. Finally, a linear regression fitting is obtained for the values $N_{\epsilon}(\alpha)$ and $\epsilon$ in the $\log-\log$ space. The value of the slope is the FD $f(\alpha_{c})$ and must be calculated for $c = 1,2,\dots,C$. In this way $C$ $f(\alpha)$ values are obtained, representing $C$ FDs ($C$ $\alpha_{c}$ associated values are also obtained). In this work, all these values are used as features in the classification (so $2\times C$ features are obtained from the multifractal analysis). In Fig. \ref{fig:emf} an image of {\em lacteal} bread type and its multifractal spectrum are shown (in this case, $C = 20$).
+Let $\alpha_{min}$ and  $\alpha_{max}$ be the minimum and maximum values of $\alpha$ computed in the image. $C$ values are defined $\alpha_{c} = \alpha_{min} + (c-1)(\alpha_{max}-\alpha_{min})/C$, where $c = 1,2,\dots,C$. Then, $\alpha \in \alpha_{c}$ if $\alpha_{c} \leq \alpha < \alpha_{c+1}$. If $\alpha = \alpha_{max}$, then $\alpha \in \alpha_{C}$. Finally, a linear regression fitting is obtained for the values $N_{\epsilon}(\alpha)$ and $\epsilon$ in the $\log-\log$ space. The value of the slope is the FD $f(\alpha_{c})$ and must be calculated for $c = 1,2,\dots,C$. In this way $C$ $f(\alpha)$ values are obtained, representing $C$ FDs ($C$ $\alpha_{c}$ associated values are also obtained). In Fig. \ref{fig:emf} an image of {\em lacteal} bread type and its multifractal spectrum are shown (in this case, $C = 20$).
 
 \begin{figure*}[htb]
 \centering
@@ -132,7 +145,20 @@ $\vcenter{\hbox{\includegraphics[scale = 0.4]{imagenes/emf}}}$
 
 
 \subsection{Sandbox Method}
-This method was introduced in \cite{Tel89} and it is useful to obtain generalized multifractal dimensions. If working with images, we first need to binarise the image, and then, $N$ points belonging to the structure ({\em i.e.}, regions with white pixels) should be randomly selected, counting for each point the number of white pixels inside a box of diameter $R$, centred at the point. The generalized sandbox dimension of order $q$ is obtained as \cite{Bert94}
+This method was introduced in \cite{Tel89} and it is useful to obtain generalized multifractal dimensions. These dimensions are linked to the singularity multifractal spectrum via a Legendre Transform:
+
+\begin{equation}
+D(q) = q h(q) - F(h),
+\label{eqn:eqnLeg1}
+\end{equation}
+
+\begin{equation}
+h(q) \cong \alpha(q) = \mathrm{d}(D(q))/\mathrm{d}q,
+\label{eqn:eqnLeg2}
+\end{equation}
+where $\alpha$ is an approximation of the H\"older exponent $h$.
+
+We first need to binarise the image, and then, $N$ points belonging to the structure ({\em i.e.}, regions with white pixels) should be randomly selected, counting for each point the number of white pixels inside a box of diameter $R$, centred at the point. The generalized sandbox dimension of order $q$ is obtained as \cite{Bert94}
 
 \begin{equation}
 D_{q} = \lim_{R\rightarrow0}{\frac{1}{q-1} \frac{\log \bigg \lbrack\frac{1}{N}\displaystyle \sum_{i=1}^{N}{p_{i}^{q-1}}\bigg \rbrack}{\log R}},
@@ -145,13 +171,17 @@ where $p_{i}$ is the number of points in the box of radius $R$ centred at the po
 D_{q} = \lim_{R\rightarrow0}{D_{q}(R)}.
 \end{equation}
 
-In practice we perform a linear fit between the values of $D_{q}(R)$ and $R$ for $R$ in $[R_{min}, R_{max}]$. The latter value will be determined based on the accuracy of the classification.
+In practice we perform a linear fit between the values of $D_{q}(R)$ and $R$ for $R$ in $[R_{min}, R_{max}]$. The latter value will be determined based on the accuracy of the application that we need.
 
-In this work, we apply this method to obtain a feature vector, setting different values of $q$ for each image, so then we can use it in classification tasks.
 
-\section{Example: Materials and Methodology}
+\section{Applications}
 
-\subsection{Image acquisition}
+\subsection{Image Clasification}
+For each material, the results obtained in the classification process are useful in quality measurements of real samples and also in the validation of synthetic representations of them. In other words, the classification is useful to determine if a given image presents the observed features in that material, allowing to associate quality measure parameters to the material.
+
+It is possible to use the obtained dimensions as image features. As an example, we will describe how different bread crumbs could be automatically classified based on these features.
+
+\subsubsection{Bread Crumb Classification}
 Twenty images of four different bread types ({\em lactal}, {\em baguette}, {\em salvado} and {\em sandwich}), counting $80$ images, were obtained using an electric slicer. The images were digitalised using an HP PSC 1210 scanner and they were saved in TIFF format. Images showed a resolution of $380 \times 380$ pixels (the maximum possible area for the four bread types) and $350$ dpi ($1$ pixel $= 0.00527 mm^{2}$). Then the images were converted to grey scale ($8$ bits). In addition, $20$ images of each bread type were acquired with a digital camera, using the same spatial resolution, counting $80$ images. The illumination conditions of these images were different from that of the scanner in order to test for the robustness of the method. In Fig.~\ref{fig:camera} four examples of bread images from the camera are shown. We also employed one hundred randomly selected images from the CalTech101~\cite{FeiFei04} dataset in order to test the method's performance with non-bread images. In Fig.~\ref{fig:nonbread} four examples of non-bread images from this dataset are shown. 
 
 \begin{figure*}[htb]
@@ -190,9 +220,8 @@ Twenty images of four different bread types ({\em lactal}, {\em baguette}, {\em 
 
 For the binarisation of the images, the algorithm presented in \cite{White83} was used. This algorithm applies a local thresholding schema, which showed better results than using a global thresholding schema. Particularly, the algorithm presented in \cite{Huang95} and used in \cite{Gonzales2008}, showed poor results when the illumination conditions vary. In Fig.~\ref{fig:bread} an image of each bread type used in this work (top row) and its resulting binarisation using the proposed algorithm (bottom row) is shown.  
 
-\section{Results}
+\subsubsection{Results}
 
-\subsection{Classification}
 {\em Support Vector Machines} (SVM)~\cite{Boser92} were used to perform the classification, using the {\em libsvm}~\cite{Chang2011} implementation. The method of {\em k-fold cross validation} was employed in order to validate the results with $k = 4$, {\em i.e.}, $75\%$ of samples are used as training and $25\%$ as testing (then switching the training and testing samples). The cross validation is applied only to scanner samples.
 
 A robust bread crumb classifier could be used to make the classification process independent of the image capturing condition. In each case, we performed a test in order to show the accuracy of the classifiers when there is a capturing condition mismatch between training and testing samples, {\em i.e.}, when training with scanner samples and testing with camera samples. Based on the randomness in the method's point selection, we made an {\em ensemble} of $10$ trained SVMs models, in which each SVM prediction {\em votes} for one bread type. Then the most appearing class (the most voted class for each image) is selected in each case. In the case of cross validation, we made an average of the percentages obtained. Table \ref{table:tableFirstTest} shows classification results when varying different parameters of the method.
@@ -242,7 +271,6 @@ In Table \ref{table:ConfusionMatrixFractal} the confusion matrix of the data usi
 
 It can be seen that the values for the cross validation and for the robustness tests are similar when varying the parameters of the method.
 
-\section{Applications}
 \subsection{Image enhancement}
 \subsection{Esge Detection}
 \subsection{Medical Applications}
