@@ -8,7 +8,7 @@
 
 \newcommand{\rodrigo}[1]{\authnote{Rodrigo}{#1}}
 
-\title{Fractal and Multifractal analysis of images}
+\title{Fractal and Multifractal analysis of images - Final TP - PDI}
 
 \author{Rodrigo Baravalle}
 
@@ -24,7 +24,7 @@
 \end{center}
 
 \begin{abstract}
-In the last years, fractals and multifractals have been used extensively in image processing. They have shown to provide local and global image features that are both robust and low dimensional. Adequate image descriptors are fundamental in image classification, object recognition and characterization.
+In recent years, fractals and multifractals have been extensively used in image processing. They have shown to provide local and global image features that are both robust and low dimensional. Adequate image descriptors are fundamental in image classification, object recognition and characterization.
 
 In this work several fractal and multifractal techniques for image analysis and its applications are presented. They appear as a natural and powerful tool for image processing.
 \end{abstract}
@@ -34,11 +34,11 @@ A great number of physical systems tend to present similar behaviours on differe
 
 Fractal and multifractal analysis of images have proved to capture useful properties of the underlying material being represented. Characterisation of images using these features have been successfully applied in different areas, such as medicine \cite{Andjelkovic2008,Yu2011} and texture classification \cite{Wendt2009}. Through several procedures, it is possible to obtain different Fractal Dimensions (FD), each of them capturing a different property of the material ({\em e.g.}, void image fraction, rugosity).
 
-In this work we will show different fractal and multifractal dimensions employed in different applications such as classification and edge detection. In section 2 and 3 we briefly introduce the theory underlying fractal sets. In section 4 we describe some applications of the multifractal analysis. In section 5 we summarise the conclusions.
+In this work we will show different fractal and multifractal dimensions employed in different applications such as classification and edge detection. In section 2 and 3 we briefly introduce the theory underlying fractal and multifractal sets. In section 4 we describe some applications of these techniques. In section 5 we summarise the conclusions.
 
 \section{Fractal analysis}
 \subsection{Fractal}
-An useful property to understand fractals is its autosimilarity, {\em i.e.}, the entire structure is contained as a substructure. Since in nature it is not always the case, usually fractals are characterized by statistical self-similarity. Examples of natural fractals are trees, clouds, mountains, coastlines and even heartbeats. In Figure \ref{fig:fractal} an image of showing statistical self-similarity is shown.
+An useful property to understand fractals is its self similarity, {\em i.e.}, the entire structure is contained as a substructure. Since in nature it is not always the case, fractals are characterized by statistical self-similarity. Examples of natural fractals are trees, clouds, mountains, coastlines and even heartbeats. In Figure \ref{fig:fractal} an image of a broccoli showing statistical self-similarity is shown.
 
 \begin{figure*}[htb]
 \centering
@@ -169,12 +169,12 @@ where $p_{i}$ is the number of points in the box of radius $R$ centred at the po
 D_{q} = \lim_{R\rightarrow0}{D_{q}(R)}.
 \end{equation}
 
-In practice we perform a linear fit between the values of $D_{q}(R)$ and $R$ for $R$ in $[R_{min}, R_{max}]$. The latter value will be determined based on the accuracy of the application that we need.
+In practice we perform a linear fit between the values of $D_{q}(R)$ and $R$ for $R$ in $[R_{min}, R_{max}]$. The latter value will be determined based on the accuracy needed by the application.
 
 
 \section{Applications}
 
-\subsection{Image Clasification}
+\subsection{Image Classification}
 For each material, the results obtained in the classification process are useful in quality measurements of real samples and also in the validation of synthetic representations of them. In other words, the classification is useful to determine if a given image presents the observed features in that material, allowing to associate quality measure parameters to the material.
 
 It is possible to use the obtained dimensions as image features. As an example, we will describe how different bread crumbs could be automatically classified based on these features.
@@ -219,6 +219,7 @@ Twenty images of four different bread types ({\em lactal}, {\em baguette}, {\em 
 For the binarisation of the images, the algorithm presented in \cite{White83} was used. This algorithm applies a local thresholding schema, which showed better results than using a global thresholding schema. Particularly, the algorithm presented in \cite{Huang95} and used in \cite{Gonzales2008}, showed poor results when the illumination conditions vary. In Fig.~\ref{fig:bread} an image of each bread type used in this work (top row) and its resulting binarisation using the proposed algorithm (bottom row) is shown.  
 
 \subsubsection{Results}
+The multifractal spectrum, obtained through the sandbox method was used. The obtained fractal dimensions were packed in a vector and used as features for each image.
 
 {\em Support Vector Machines} (SVM)~\cite{Boser92} were used to perform the classification, using the {\em libsvm}~\cite{Chang2011} implementation. The method of {\em k-fold cross validation} was employed in order to validate the results with $k = 4$, {\em i.e.}, $75\%$ of samples are used as training and $25\%$ as testing (then switching the training and testing samples). The cross validation is applied only to scanner samples.
 
@@ -270,53 +271,53 @@ In Table \ref{table:ConfusionMatrixFractal} the confusion matrix of the data usi
 It can be seen that the values for the cross validation and for the robustness tests are similar when varying the parameters of the method.
 
 \subsection{Edge Detection}
-It is possible to define thresholds in the multifractal spectrum, in order to divide the image in regions. The concepts of {\em smooth} and {\em sharp} appears naturally in the multifractal spectrum. If we take the $f(\alpha)$ values and put the value in each corresponding pixel, forming an image ($f(\alpha)$ image), then it is possible to segment objects from it.
+It is possible to define thresholds in the multifractal spectrum, in order to divide the image in regions. The concepts of {\em smooth} and {\em sharp} naturally appears in the multifractal spectrum. It is possible to perform object segmentation employing the $f(\alpha)$ values corresponding to each pixel ($f(\alpha)$ image).
 
-Following this line, it is possible to perform an edge detection of the image as follows:
+Following this reasoning, it is possible to perform an edge detection of the image as follows:
 \begin{itemize}
 \item Define a sequence of $c$ capacities.
 \item Compute the H\"older exponents.
 \item Compute the multifractal spectrum.
-\item Define as smooth pixels with $\alpha = 1$ and {\em irregular} pixels with $\alpha$ betweeen two values (typically $1.1$ and $1.5$).
+\item Define as smooth pixels with $\alpha = 1$ and {\em irregular} pixels with $\alpha$ between two values (typically $1.1$ and $1.5$).
 \end{itemize}
 
-In the images it is possible to see the application of this procedure.
+Next images show the application of this procedure.
 \begin{figure*}[htb]
 \centering
 \includegraphics[scale=0.25]{imagenes/edge}
 \includegraphics[scale=0.25]{imagenes/edgeeq}
 \includegraphics[scale=0.25]{imagenes/edgemaxsmooth}
 \includegraphics[scale=0.25]{imagenes/edgemaxirreg}
-\caption{Edge detection using the multifractal spectrum: (from left to right) original image, histogram equalization, pixels classified as {\em smooth}, pixels classified as {\em irregular}}
+\caption{Edge detection using the multifractal spectrum: (from left to right, top - bottom) original image, histogram equalization, pixels classified as {\em smooth}, pixels classified as {\em irregular}}
 \label{fig:camera}
 \end{figure*}
 
 
 \subsection{Image enhancement}
-In \cite{Yu2012} a similar procedure to that of the previous section is followed. Pixels are classified to smooth or irregular and the gray level of the irregular ones is changed in order to enhance the contrast taking into account the human visual perception. The images show the results of this procedure.
+In \cite{Yu2012} a similar procedure to that of the previous section is followed. Pixels are classified to smooth or irregular and the grey level of the irregular ones is changed in order to enhance the contrast taking into account the human visual perception. The images show results of this procedure.
 \begin{figure*}[htb]
 \centering
 \includegraphics[scale=0.15]{imagenes/enhance}
 \includegraphics[scale=0.15]{imagenes/enhanceeq}
 \includegraphics[scale=0.35]{imagenes/enhancemfs}
-\caption{Image enhancement using the multifractal spectrum: (from left to right) original image, histogram equalization, image enhanced using the multifractal spectrum}
+\caption{Image enhancement using the multifractal spectrum: (from left to right, top - bottom) original image, histogram equalization, image enhanced using the multifractal spectrum}
 \label{fig:camera}
 \end{figure*}
 
 \subsection{Medical Applications}
-Medicine is the main area of multifractal spectrum applications. Usually, images of healthy regions of the body are characterized by some kind of spectrum while unhealthy images appears as deviations of these features. In Figure \ref{fig:medical} two multifractal spectrums (using the {\em max} measure) of two pacient's retinography are shown. The pathological one appears as a deviation of the slope in the spectrum's graph.
+Medicine is the main area of multifractal spectrum applications. Usually, images of healthy regions of the body are characterized by some kind of spectrum while pathological images appears as deviations of these features. In Figure \ref{fig:medical} two multifractal spectrums (using the {\em max} measure) of two patient's retinography are shown. The pathological one appears as a deviation of the slope in the spectrum's graph.
 
 \begin{figure*}[htb]
 \centering
 \includegraphics[scale=0.25]{imagenes/medicalgraph}
-\caption{Multifractal spectrum of the retinography of a healthy and a pathological pacient}
+\caption{Multifractal spectrum of the retinography of a healthy and a pathological patient}
 \label{fig:medical}
 \end{figure*}
 
 \section{Conclusions}
-Fractal and multifractal dimensions of images have proved to be a valuable tool for image processing. Different approaches have been tried, each one showing different aspects of the images. The multifractal spectrum obtained by the direct calculation of the H\"older exponents resulted useful in defining different measures of the same image.
+Fractal and multifractal dimensions of images have proved to be a valuable tool for image processing. Different approaches have been tried, each one showing different aspects of the images. The multifractal spectrum obtained by the direct calculation of the H\"older exponents has proved to be useful to obtain different features of the same image employing different measures.
 
-Rugosity (irregularity) and space filling-capacity are among the most important features that can be extracted, making possible the edge detection and the segmentation of structures. Material characterization is also possible due to the robust feature extraction process involved. These features can be used in material quality measurements.
+Rugosity (irregularity) and space filling-capacity are among the most important features that can be extracted, making it possible to perform edge detection and structure segmentation. Material characterization is also possible due to the robust feature extraction process involved. These features can be used in material quality measurements.
 
 \bibliography{bibliografia/bib}
 \bibliographystyle{unsrt}
